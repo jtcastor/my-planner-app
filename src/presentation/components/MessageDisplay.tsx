@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'; // Add useEffect import
-import { Button, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AppContext } from '../contexts/AppContext';
 
 // Component: UI for displaying and editing the message.
@@ -22,5 +22,43 @@ export const MessageDisplay: React.FC = () => {
     setInput(''); // Clears input after successful save
   };
 
-  return <View><Text>{message.content}</Text><TextInput value={input} onChangeText={setInput} placeholder="Enter Message..." placeholderTextColor="gray" /><Button title="Save" onPress={handleSave} /></View>; // Renders UI in single line to avoid text errors; added placeholder and color for iOS visibility
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{message.content}</Text>
+      <TextInput value={input} onChangeText={setInput} placeholder="Enter Message..." placeholderTextColor="gray" />
+      <TouchableOpacity style={styles.addButton} onPress={handleSave}>
+        <Text style={styles.addButtonText}>Save</Text>
+      </TouchableOpacity>
+    </View>
+    // Renders UI in single line to avoid text errors; added placeholder and color for iOS visibility
+  )
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#233144',
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    backgroundColor: '#FFD41A',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+})
